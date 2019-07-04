@@ -1,0 +1,100 @@
+
+{% extends 'base.html'%}
+
+{% block head %}
+    <title>SignUp2</title> 
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/bulma.css' %}">
+
+    <style>
+    	.container{
+    		margin-top: 50px;
+    	}
+
+		hr {
+		  border: 1px solid #f1f1f1;
+		  margin-bottom: 40px;
+		}
+
+		/* Set a style for all buttons */
+		.button {
+		  background-color: #4CAF50;
+		  color: white;
+		  padding: 14px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  cursor: pointer;
+		  width: 20%;
+		  opacity: 0.9;
+		  float: left;
+		}
+
+		.button:hover {
+		  opacity:1;
+		}
+
+		.field{
+		  width: 100%;
+		  padding: 15px;
+		  margin: 5px 0 22px 0;
+		  border: none;
+		  background: #f1f1f1;
+		}
+
+		.field:focus {
+		  background-color: #ddd;
+		  outline: none;
+		}
+
+    </style>
+
+{% endblock %}
+
+
+
+{% block body %}
+  <div class="container">
+    <div>
+      {% if registered %}
+        <h1>Thank you for registering!</h1>
+      {% else %}
+        <h1>Register Here</h1>
+        <p>Please fill in this form to create an account</p>
+        <hr>
+		<form action="{% url 'signup' %}" method="POST">
+          {% csrf_token %}
+          
+          <!--{% for field in user_form %}
+          	<label for="{{ field.id_for_label }}" class="label"><b>{{field.html_name}}</b></label>
+          	{{ field }}     	
+          {% endfor %}
+      -->
+			{{ user_form.non_field_errors }}
+			<div class="fieldWrapper">
+			    {{ user_form.username.errors }}
+			    <label for="{{ user_form.username.id_for_label }}"><b>Username:</b></label>
+			    {{ user_form.username }}
+			</div> 
+			<div class="fieldWrapper">
+			    {{ user_form.email.errors }}
+			    <label for="{{ user_form.email.id_for_label }}"><b>Email:</b></label>
+			    {{ user_form.email }}
+			</div> 
+			<div class="fieldWrapper">
+			    {{ user_form.password.errors }}
+			    <label for="{{ user_form.password.id_for_label }}"><b>Password:</b></label>
+			    {{ user_form.password }}
+			</div> 
+			<div class="fieldWrapper">
+			    {{ user_form.confirm_password.errors }}
+			    <label for="{{ user_form.confirm_password.id_for_label }}"><b>Confirm Password:</b></label>
+			    {{ user_form.confirm_password }}
+			</div> 
+
+          <input type="submit" name="" value="Register" class="button">
+        </form>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
