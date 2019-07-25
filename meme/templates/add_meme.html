@@ -1,0 +1,84 @@
+{% extends 'home.html' %}
+
+{% block head %}
+    <title>Meme</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/bulma.css' %}">
+    <style>
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .container .category, .meme_img{
+            margin-top: 20px;
+        }
+        .container .field {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 0px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .container .choice-control {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 0px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .container .button {
+            width: 100%;
+            background: #5897fb;
+            color: white;
+            font-weight: bold;
+            border: none;
+            margin-top: 20px;
+            padding: 10px;
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block body %}
+    <div class="container">
+        {% if added %}
+            <h1>Thank you for uploading a meme!</h1>
+        {% else %}
+            <div class="header">
+                <h1>Upload meme</h1>
+                <p>Please fill in this form to upload a meme</p>
+                <hr>
+            </div>
+            <form action="{% url 'meme' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {{ meme_form.non_field_errors }}
+                <div class="description">
+                    {{ meme_form.description.errors }}
+                    <label for="{{ meme_form.description.id_for_label }}"><b>Description:</b></label>
+                    {{ meme_form.description }}
+                </div>
+                <div class="category">
+                    {{ meme_form.category.errors }}
+                    <label for="{{ meme_form.category.id_for_label }}"><b>Category:</b></label>
+                    {{ meme_form.category }}
+                </div>
+                <div class="meme_img">
+                    {{ meme_form.meme_img.errors }}
+                    <label for="{{ meme_form.meme_img.id_for_label }}"><b>Meme Image:</b></label>
+                    {{ meme_form.meme_img }}
+                </div>
+
+                <input type="submit" name="" value="Upload" class="button">
+            </form>
+        {% endif %}
+    </div>
+
+{% endblock %}

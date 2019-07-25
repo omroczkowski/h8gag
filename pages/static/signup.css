@@ -1,0 +1,38 @@
+.container {
+    margin-top: 50px;
+}
+
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 40px;
+}
+
+/* Set a style for all buttons */
+.button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    opacity: 0.9;
+    float: left;
+}
+
+.button:hover {
+    opacity: 1;
+}
+
+.field {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+
+.field:focus {
+    background-color: #ddd;
+    outline: none;
+}

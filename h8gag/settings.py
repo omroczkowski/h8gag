@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'meme',
     'pages',
     'django.contrib.admin',
     'django.contrib.auth',

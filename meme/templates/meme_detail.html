@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>LOL</title>
+    {% load staticfiles %}
+
+    <style>
+        .image {
+            display: block;
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+
+        .images {
+            margin-top: 70px;
+        }
+
+        .description {
+            display: block;
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 0px;
+        }
+
+        .description a {
+            color: black;
+        }
+
+        .description a:hover {
+            text-decoration: none;
+            color: #3875d7;
+        }
+
+        .category {
+            font-size: 10px;
+            display: block;
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 30px;
+
+        }
+
+        .category a {
+            color: lightgrey;
+        }
+
+        .category a:hover {
+            text-decoration: none;
+            color: black;
+        }
+
+        .rank {
+            font-size: 12px;
+
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 0px;
+            margin-bottom: 50px;
+        }
+
+        .rank a {
+            color: lightgrey;
+            float: left;
+            text-align: center;
+            padding-left: 16px;
+            text-decoration: none;
+        }
+
+        .rank a:hover {
+            text-decoration: none;
+            color: gray;
+        }
+
+        p {
+            margin-bottom: 0px;
+        }
+
+        hr {
+            width: 400px;
+            margin-top: 20px;
+        }
+
+    </style>
+
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="images">
+        <div class="category">
+            <a href="{% url 'memes'  category=meme.category %}">
+                <p>{{ meme.category }}</p>
+            </a>
+        </div>
+        <div class="description">
+            <a href="{% url 'meme_detail'  id=meme.id %}">
+                <p><b>{{ meme.description }} dupa dupa dupa dupa</b></p>
+            </a>
+        </div>
+        <div class="image">
+            <a href="{% url 'meme_detail'  id=meme.id %}">
+                <img src="{{ meme.meme_img.url }}" alt="img" class="image">
+            </a>
+        </div>
+        <div class="rank">
+            <a href="{% url 'meme_detail'  id=meme.id %}">
+                    <p>{{ meme.rank }} points</p>
+                </a>
+
+                {% if request.user in meme.upvoters.all %}
+                    <b><a href="{% url 'unvote'  id=meme.id %}" style="color: black">Upvote</a></b>
+                {% else %}
+                    <a href="{% url 'upvote'  id=meme.id %}">Upvote</a>
+                {% endif %}
+
+                {% if request.user in meme.downvoters.all %}
+                    <b><a href="{% url 'unvote'  id=meme.id %}" style="color: black">Downvote</a></b>
+                {% else %}
+                    <a href="{% url 'downvote'  id=meme.id %}">Downvote</a>
+                {% endif %}
+
+                <a href="#comment">Comment</a>
+        </div>
+        <hr>
+    </div>
+
+{% endblock %}
